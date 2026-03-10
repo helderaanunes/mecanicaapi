@@ -14,7 +14,7 @@ public class ProdutoVeiculo {
     private long id;
     @ManyToOne
     private Veiculo veiculo;
-    private AnoModelo  AnoModelo;
+    private int anoModelo;
 
 
 }
