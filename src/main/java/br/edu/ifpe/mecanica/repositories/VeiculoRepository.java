@@ -1,0 +1,10 @@
+package br.edu.ifpe.mecanica.repositories;
+
+
+import br.edu.ifpe.mecanica.entities.Veiculo;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface VeiculoRepository extends CrudRepository<Veiculo, Long> {
+}
