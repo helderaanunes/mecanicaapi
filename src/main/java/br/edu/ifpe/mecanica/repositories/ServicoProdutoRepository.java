@@ -1,12 +1,13 @@
 package br.edu.ifpe.mecanica.repositories;
 
+import br.edu.ifpe.mecanica.entities.ServicoProduto;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 
-public interface AgendamentoRepositores {
-    extends CrudRepository <Agendamento,Long> {
+public interface ServicoProdutoRepository 
+    extends CrudRepository <ServicoProduto,Long> {
 
-    }
+
 }
