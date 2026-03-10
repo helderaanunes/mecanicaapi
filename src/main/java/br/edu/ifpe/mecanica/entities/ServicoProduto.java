@@ -1,14 +1,6 @@
 package br.edu.ifpe.mecanica.entities;
 
-import jakarta.persistence.Entity;
-import lombok.Data;
-
-    package br.edu.ifpe.mecanica.entities;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
     @Entity
@@ -18,8 +10,10 @@ import lombok.Data;
         @Id
         @GeneratedValue(strategy  = GenerationType.IDENTITY)
         private Long id;
-        private String servico;
-        private Produto;
-        private int QuantidadeUtiliza;
+        @ManyToOne
+        private Servico servico;
+        @ManyToOne
+        private  Produto produto;
+        private int quantidadeUtilizado;
 
 }
