@@ -18,7 +18,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
-    // GET: Listar todos
+    // GET: Listar todos:
     @GetMapping
     public List<Usuario> listar() {
         return service.listarTodos();
@@ -32,14 +32,14 @@ public class UsuarioController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // POST: Criar novo usuário
+    // POST: Criar novo usuário:
     @PostMapping
     public ResponseEntity<Usuario> criar(@RequestBody Usuario usuario) {
         Usuario novoUsuario = service.salvar(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
     }
 
-    // PUT: Atualizar usuário existente
+    // PUT: Atualizar usuário existente:
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario usuario) {
         try {
@@ -50,7 +50,7 @@ public class UsuarioController {
         }
     }
 
-    // DELETE: Remover usuário
+    // DELETE: Remover usuário:
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.deletar(id);
