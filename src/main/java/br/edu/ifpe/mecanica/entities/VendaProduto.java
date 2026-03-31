@@ -5,13 +5,17 @@ import lombok.Data;
 
 @Entity
 @Data
-public class ProdutoOrdemServio {
+public class VendaProduto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
-    private OrdemServico ordemServico;
+    private Venda venda;
+
     @ManyToOne
     private Produto produto;
+
     private int quantidade;
+    private double valorProduto;
 }

@@ -5,7 +5,6 @@ import br.edu.ifpe.mecanica.services.OrdemServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,7 +20,7 @@ public class OrdemServicoController {
     }
 
     @GetMapping
-    public List<OrdemServico> listar(){
+    public Iterable<OrdemServico> listar(){
         return service.listar();
     }
 

@@ -12,7 +12,9 @@ public class ServicoOrdemServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
+    @ManyToOne
     private Servico servico;
+    @ManyToOne
     private OrdemServico ordemServico;
     private int quantidade;
     private double valorServico;

@@ -1,17 +1,19 @@
 package br.edu.ifpe.mecanica.entities;
-
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
-public class ProdutoOrdemServio {
+public class ProdutoVeiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private OrdemServico ordemServico;
+
     @ManyToOne
     private Produto produto;
-    private int quantidade;
+
+    @ManyToOne
+    private Veiculo veiculo;
+
+    private int anoModelo;
 }

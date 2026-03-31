@@ -12,6 +12,6 @@ public class UsuarioPermissao {
     @ManyToOne
     private Usuario Usuaio;
     @ManyToOne
-    private Permissao Permissao;
+    private Permissao permissao;
 
 }
