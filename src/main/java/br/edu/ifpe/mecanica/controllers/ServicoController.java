@@ -3,47 +3,57 @@ package br.edu.ifpe.mecanica.controllers;
 import br.edu.ifpe.mecanica.entities.Servico;
 import br.edu.ifpe.mecanica.services.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@RestController
+@RequestMapping("/api/servicos")
+@CrossOrigin(origins = "*")
 public class ServicoController {
-    @RestController
-    @RequestMapping("/servicos")
-    public class servicoController {
 
-        @Autowired
-        private ServicoService service;
+    @Autowired
+    private ServicoService service;
 
-        // POST - criar serviço
-        @PostMapping
-        public Servico salvar(@RequestBody Servico servico) {
-            return service.salvar(servico);
+    // GET - listar todos
+    @GetMapping
+    public List<Servico> listarTodos() {
+        return (List<Servico>) service.listarTodos();
+    }
+
+    // GET - buscar por id
+    @GetMapping("/{id}")
+    public ResponseEntity<Servico> buscarPorId(@PathVariable Long id) {
+        return service.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    // POST - criar serviço
+    @PostMapping
+    public Servico salvar(@RequestBody Servico servico) {
+        return service.salvar(servico);
+    }
+
+    // PUT - atualizar
+    @PutMapping("/{id}")
+    public ResponseEntity<Servico> atualizar(@PathVariable Long id, @RequestBody Servico servico) {
+        try {
+            return ResponseEntity.ok(service.atualizar(id, servico));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
         }
+    }
 
-        // GET - listar todos
-        @GetMapping
-        public List<Servico> listarTodos() {
-            return (List<Servico>) service.listarTodos();
-        }
-
-        // GET - buscar por id
-        @GetMapping("/{id}")
-        public Optional<Servico> buscarPorId(@PathVariable Long id) {
-            return service.buscarPorId(id);
-        }
-
-        // PUT - atualizar
-        @PutMapping("/{id}")
-        public Servico atualizar(@PathVariable Long id, @RequestBody Servico servico) {
-            return service.atualizar(id, servico);
-        }
-
-        // DELETE - deletar
-        @DeleteMapping("/{id}")
-        public void deletar(@PathVariable Long id) {
+    // DELETE - deletar
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        try {
             service.deletar(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
         }
     }
 }
