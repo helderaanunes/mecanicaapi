@@ -16,6 +16,7 @@ public class Modelo {
     private Long id;
     @ManyToOne
     private Marca marca;
+    @Column(unique = true, nullable = false)
     private String descricao;
 
 }
