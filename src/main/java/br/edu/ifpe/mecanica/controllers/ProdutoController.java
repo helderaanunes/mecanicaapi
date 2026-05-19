@@ -1,4 +1,4 @@
-package br.edu.ifpe.mecanica.controlles;
+package br.edu.ifpe.mecanica.controllers;
 
 import br.edu.ifpe.mecanica.entities.Produto;
 import br.edu.ifpe.mecanica.services.ProdutoService;
