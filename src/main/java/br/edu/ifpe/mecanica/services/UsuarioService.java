@@ -4,6 +4,7 @@ package br.edu.ifpe.mecanica.services;
 import br.edu.ifpe.mecanica.entities.Usuario;
 import br.edu.ifpe.mecanica.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,17 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder; // Você precisará criar este Bean na SecurityConfigurations
+
+    public Usuario salvar(Usuario usuario) {
+        // Criptografando a senha antes de salvar no banco
+        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaCriptografada);
+
+        return repository.save(usuario);
+    }
+
     // Listar todos os usuários
     public List<Usuario> listarTodos() {
         return (List<Usuario>) repository.findAll();
@@ -29,11 +41,6 @@ public class UsuarioService {
         return repository.findById(id);
     }
 
-    // Salvar ou Atualizar
-    public Usuario salvar(Usuario usuario) {
-        // Aqui você pode adicionar validações, como verificar se o e-mail já existe
-        return repository.save(usuario);
-    }
 
     // Deletar
     public void deletar(Long id) {
@@ -47,8 +54,8 @@ public class UsuarioService {
             usuarioExistente.setNome(usuarioAtualizado.getNome());
             usuarioExistente.setEmail(usuarioAtualizado.getEmail());
 
-            // Cuidado: Em uma app real, a senha exigiria uma lógica de hash separada
-            usuarioExistente.setSenha(usuarioAtualizado.getSenha());
+            String senhaCriptografada = passwordEncoder.encode(usuarioAtualizado.getSenha());
+            usuarioExistente.setSenha(senhaCriptografada);
 
             // 3. Salvamos a instância atualizada
             return repository.save(usuarioExistente);
