@@ -38,13 +38,10 @@ public class SecurityFilter extends OncePerRequestFilter {
             var subject = tokenService.getSubject(tokenJWT);
             var usuario = repository.findByEmail(subject);
             if (usuario != null) {
-                // A autenticação SÓ deve acontecer se o usuário existir
                 var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                System.out.println("Usuário logado: " + SecurityContextHolder.getContext().getAuthentication().getName());
             }
         }
-        // O filtro sempre deve seguir para o próximo passo, com ou sem autenticação
         filterChain.doFilter(request, response);
     }
 }
